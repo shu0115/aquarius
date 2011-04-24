@@ -1,0 +1,59 @@
+<% unless @user.blank? %>
+  <% form_for(@user) do |f| %>
+    <%= f.error_messages %>
+  
+    <br />
+
+    <%# ログインID %>
+    <%= f.label :login_id, t("user.login_id") %>：<br />
+    <%= f.text_field :login_id, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%= f.label :password, "現在のパスワード" %>：<br />
+    <%= f.password_field :password, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%# 表示名 %>
+    <%= f.label :display_name, t("user.display_name") %>：<br />
+    <%= f.text_field :display_name, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%# レベル %>
+    <%= f.label :level, t("user.level") %>：<br />
+    <%= f.text_field :level, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%# Twitter ID %>
+    <%= f.label :twitter_id, t("user.twitter_id") %>：<br />
+    <%= f.text_field :twitter_id, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%# メールアドレス %>
+    <%= f.label :mail_address, t("user.mail_address") %>：<br />
+    <%= f.text_field :mail_address, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%= f.submit t("menu.save"), :disable_with => t("menu.save") %><br />
+  
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <span class="menu">
+    <%= link_to 'List', users_path %>
+    <%= link_to 'Show', @user %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to 'List', users_path %>
+  </span>
+<% end %>

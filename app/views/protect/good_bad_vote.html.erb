@@ -1,0 +1,44 @@
+<!--<center>-->
+
+<%= render :partial => "vote_menu" %>
+
+<% form_for :good_bad_vote, :url => { :action => "good_bad_vote_done", :election_id => @election.id, :election_page => params[:election_page] } do |f| %>
+  <table class="table_style" border="0">
+    <% @selections.each do |selection| %>
+    <tr>
+      <td>
+      <%= f.label :choice, "#{selection.name}" %>
+      </td>
+
+      <td>
+        　<%= radio_button_tag( "good_bad_vote[choice][#{selection.id}]", "good", (@good_bad_vote_hash[selection.id] == "good") ) %><%= label_tag( "good_bad_vote_choice_#{selection.id}_good", " Good" ) %>
+        <%= radio_button_tag( "good_bad_vote[choice][#{selection.id}]", "bad", (@good_bad_vote_hash[selection.id] == "bad") ) %><%= label_tag( "good_bad_vote_choice_#{selection.id}_bad", " Bad" ) %>
+        <%= radio_button_tag( "good_bad_vote[choice][#{selection.id}]", "none", (@good_bad_vote_hash[selection.id].blank? or @good_bad_vote_hash[selection.id] == "none") ) %><%= label_tag( "good_bad_vote_choice_#{selection.id}_none", " None" ) %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <br />
+
+  <%# 選挙ID %>
+  <%= f.hidden_field :election_id, { :value => @election.id } %>
+
+  <%# 投票ボタン %>
+  <%= f.submit t("election.vote"), :disable_with => t("election.vote") %>
+  
+  <%# 全選択／全解除ボタン %>
+  <input type="button" value="全解除" onClick="all_check(this.form, false)">
+  <br />
+<% end %>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+<!--</center>-->
+
+<br />

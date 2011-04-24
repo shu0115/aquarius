@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @good_bad_vote.user_id %>
+</p>
+
+<p>
+  <b>Election:</b>
+  <%=h @good_bad_vote.election_id %>
+</p>
+
+<p>
+  <b>Selection:</b>
+  <%=h @good_bad_vote.selection_id %>
+</p>
+
+<p>
+  <b>Choice:</b>
+  <%=h @good_bad_vote.choice %>
+</p>
+
+
+<%= link_to 'Edit', edit_good_bad_vote_path(@good_bad_vote) %> |
+<%= link_to 'Back', good_bad_votes_path %>

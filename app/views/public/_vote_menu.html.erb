@@ -1,0 +1,26 @@
+
+<span class="menu">
+  <% if @election.one_vote == "on" %>
+    <span class="<%= 'now_page' if params[:action] == 'one_vote' %>"><%= link_to t("election.one_vote"), { :action => "one_vote", :id => @election.id, :election_page => params[:election_page] } %></span>
+  <% end %>
+
+  <% if @election.three_vote == "on" %>
+    <span class="<%= 'now_page' if params[:action] == 'three_vote' %>"><%= link_to t("election.three_vote"), { :action => "three_vote", :id => @election.id, :election_page => params[:election_page] } %></span>
+  <% end %>
+
+  <% if @election.rank_vote == "on" %>
+    <span class="<%= 'now_page' if params[:action] == 'rank_vote' %>"><%= link_to t("election.rank_vote"), { :action => "rank_vote", :id => @election.id, :election_page => params[:election_page] } %></span>
+  <% end %>
+
+  <% if @election.free_choice_vote == "on" %>
+    <span class="<%= 'now_page' if params[:action] == 'free_choice_vote' %>"><%= link_to t("election.free_choice_vote"), { :action => "free_choice_vote", :id => @election.id, :election_page => params[:election_page] } %></span>
+  <% end %>
+
+  <% if @election.good_bad_vote == "on" %>
+    <span class="<%= 'now_page' if params[:action] == 'good_bad_vote' %>"><%= link_to t("election.good_bad_vote"), { :action => "good_bad_vote", :id => @election.id, :election_page => params[:election_page] } %></span>
+  <% end %>
+</span>
+
+<br />
+<br />
+<p style="color: green"><%= flash[:vote_notice] %></p>

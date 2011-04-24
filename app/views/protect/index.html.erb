@@ -1,0 +1,35 @@
+<%# ページング %>
+<%= will_paginate @elections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<table class="table_style" border="0">
+  <tr>
+    <th><%= t("election.title") %></th>
+    <th><%= t("election.mode") %></th>
+    <th><%= t("election.start_time") %></th>
+    <th><%= t("election.end_time") %></th>
+    <th><%= t("election.one_vote") %></th>
+    <th><%= t("election.three_vote") %></th>
+    <th><%= t("election.rank_vote") %></th>
+    <th><%= t("election.free_choice_vote") %></th>
+    <th><%= t("election.good_bad_vote") %></th>
+  </tr>
+
+<% @elections.each do |election| %>
+  <tr>
+    <td><%=h election.title %></td>
+    <td><%=h $mode[election.mode] %></td>
+    <td><%=h election.start_time.strftime("%Y/%m/%d %H:%M") unless election.start_time.blank? %></td>
+    <td><%=h election.end_time.strftime("%Y/%m/%d %H:%M") unless election.end_time.blank? %></td>
+    <td class="menu"><% if election.one_vote == "on" %><%= link_to t("election.one_vote"), { :action => "one_vote", :id => election.id, :election_page => params[:page] } %><% end %></td>
+    <td class="menu"><% if election.three_vote == "on" %><%= link_to t("election.three_vote"), { :action => "three_vote", :id => election.id, :election_page => params[:page] } %><% end %></td>
+    <td class="menu"><% if election.rank_vote == "on" %><%= link_to t("election.rank_vote"), { :action => "rank_vote", :id => election.id, :election_page => params[:page] } %><% end %></td>
+    <td class="menu"><% if election.free_choice_vote == "on" %><%= link_to t("election.free_choice_vote"), { :action => "free_choice_vote", :id => election.id, :election_page => params[:page] } %><% end %></td>
+    <td class="menu"><% if election.good_bad_vote == "on" %><%= link_to t("election.good_bad_vote"), { :action => "good_bad_vote", :id => election.id, :election_page => params[:page] } %><% end %></td>
+  </tr>
+<% end %>
+</table>
+
+<%# ページング %>
+<%= will_paginate @elections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<br />

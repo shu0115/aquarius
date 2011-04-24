@@ -1,0 +1,68 @@
+
+<center>
+
+<%= render :partial => "sub_menu" %>
+
+<br />
+<br />
+<br />
+
+<table class="table_style">
+  <% if params[:action] == "rank_vote" %>
+    <%# 順位投票 %>
+    <tr>
+      <th>候補</th>
+      <% 1.upto(@selections.length){ |index| %>
+        <th><%= index %>位</th>
+      <% } %>
+    </tr>
+    <% @vote_count.each_with_index{ |data, index_1| %>
+        <tr>
+          <td><%= data[1][:name] %></td>
+        <% 1.upto(@selections.length){ |index_2| %>
+          <td align="right"><%= data[1]["count_#{data[0]}_#{index_2}"] %></td>
+        <% } %>
+        </tr>
+    <% } %>
+  <% elsif params[:action] == "good_bad_vote" %>
+    <%# Good／Bad投票 %>
+    <tr>
+      <th>候補</th>
+      <th>Good</th>
+      <th>Bad</th>
+      <th>Total</th>
+    </tr>
+    <%# Good／Bad %>
+    <% @vote_count.each_with_index{ |data, index| %>
+    <tr>
+      <td><%= data[1][:name] %></td>
+      <td align="right"><%= data[1][:good_count] %></td>
+      <td align="right"><%= data[1][:bad_count] %></td>
+      <td align="right"><%= data[1][:good_count] - data[1][:bad_count] %></td>
+    </tr>
+    <% } %>
+  <% else %>
+    <tr>
+      <th>候補</th>
+      <th>投票数</th>
+    </tr>
+  
+    <% @vote_count.each_with_index{ |data, index| %>
+    <tr>
+      <td><%= data[1][:name] %></td>
+      <td align="right"><%= data[1][:count] %></td>
+    </tr>
+    <% } %>
+  <% end %>
+</table>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+</center>
+
+<br />

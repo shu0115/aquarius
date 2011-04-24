@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  title: MyString
+  mode: MyString
+  start_time: 2011-04-14 17:38:15
+  end_time: 2011-04-14 17:38:15
+  one_vote: MyString
+  three_vote: MyString
+  rank_vote: MyString
+  free_choice_vote: MyString
+  good_bad_vote: MyString
+
+two:
+  user_id: 1
+  title: MyString
+  mode: MyString
+  start_time: 2011-04-14 17:38:15
+  end_time: 2011-04-14 17:38:15
+  one_vote: MyString
+  three_vote: MyString
+  rank_vote: MyString
+  free_choice_vote: MyString
+  good_bad_vote: MyString

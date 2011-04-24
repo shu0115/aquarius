@@ -1,0 +1,31 @@
+<% unless @user.blank? %>
+  <table class="table_style">
+    <tr>
+      <th align="left"><%= t("user.login_id") %></th>
+      <td><%= @user.login_id %></td>
+    </tr>
+    
+    <tr>
+      <th align="left"><%= t("user.display_name") %></th>
+      <td><%= @user.display_name %></td>
+    </tr>
+    
+    <tr>
+      <th align="left"><%= t("user.twitter_id") %></th>
+      <td><%= @user.twitter_id %></td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <span class="menu">
+    <%= link_to t("menu.top"), :root %>
+    <%= link_to t("menu.edit"), { :action => "edit" } %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to t("menu.top"), :root %>
+  </span>
+<% end %>

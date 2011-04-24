@@ -1,0 +1,62 @@
+
+<% unless @election.blank? %>
+  <table class="table_style">
+    <tr>
+      <th align="left"><%= t("election.title") %></th>
+      <td><%= @election.title %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.mode") %></th>
+      <td><%=h $mode[@election.mode] %><% if @election.mode == "protect" %><%= "(閲覧キー:#{@election.show_key})" unless @election.show_key.blank? %><% end %></td>
+    </tr>
+    
+    <tr>
+      <th align="left"><%= t("election.start_time") %></th>
+      <td><%= @election.start_time.strftime("%Y/%m/%d %H:%M") unless @election.start_time.blank? %></td>
+    </tr>
+    
+    <tr>
+      <th align="left"><%= t("election.end_time") %></th>
+      <td><%= @election.end_time.strftime("%Y/%m/%d %H:%M") unless @election.end_time.blank? %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.one_vote") %></th>
+      <td><%= $function_alpha[@election.one_vote] %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.three_vote") %></th>
+      <td><%= $function_alpha[@election.three_vote] %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.rank_vote") %></th>
+      <td><%= $function_alpha[@election.rank_vote] %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.free_choice_vote") %></th>
+      <td><%= $function_alpha[@election.free_choice_vote] %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("election.good_bad_vote") %></th>
+      <td><%= $function_alpha[@election.good_bad_vote] %></td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :page => params[:page] } %>
+    <%= link_to t("menu.edit"), { :action => "edit", :id => @election.id, :page => params[:page] } %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :page => params[:page] } %>
+  </span>
+<% end %>

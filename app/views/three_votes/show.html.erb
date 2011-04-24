@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @three_vote.user_id %>
+</p>
+
+<p>
+  <b>Election:</b>
+  <%=h @three_vote.election_id %>
+</p>
+
+<p>
+  <b>Selection:</b>
+  <%=h @three_vote.selection_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_three_vote_path(@three_vote) %> |
+<%= link_to 'Back', three_votes_path %>

@@ -1,0 +1,51 @@
+<% unless @user.blank? %>
+  <table class="table_style" border="0">
+    <tr>
+      <th align="left"><%= t("user.login_id") %></th>
+      <td><%= @user.login_id %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.display_name") %></th>
+      <td><%= @user.display_name %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.level") %></th>
+      <td><%= @user.level %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.twitter_id") %></th>
+      <td><%= @user.twitter_id %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.mail_address") %></th>
+      <td><%= @user.mail_address %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.updated_at") %></th>
+      <td><%= @user.updated_at.strftime("%Y/%m/%d %H:%M:%S") unless @user.updated_at.blank? %></td>
+    </tr>
+
+    <tr>
+      <th align="left"><%= t("user.created_at") %></th>
+      <td><%= @user.created_at.strftime("%Y/%m/%d %H:%M:%S") unless @user.created_at.blank? %></td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <span class="menu">
+    <%= link_to 'List', users_path %>
+    <%= link_to 'Edit', edit_user_path( @user ) %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to 'List', users_path %>
+  </span>
+<% end %>

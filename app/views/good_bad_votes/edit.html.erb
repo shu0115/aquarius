@@ -1,0 +1,28 @@
+<h1>Editing good_bad_vote</h1>
+
+<% form_for(@good_bad_vote) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :election_id %><br />
+    <%= f.text_field :election_id %>
+  </p>
+  <p>
+    <%= f.label :selection_id %><br />
+    <%= f.text_field :selection_id %>
+  </p>
+  <p>
+    <%= f.label :choice %><br />
+    <%= f.text_field :choice %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @good_bad_vote %> |
+<%= link_to 'Back', good_bad_votes_path %>

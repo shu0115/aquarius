@@ -1,0 +1,156 @@
+
+<script type="text/javascript">
+//<![CDATA[
+function draw_graph() {
+  Event.observe( window, 'load', function() {
+    var graph = new Proto.Chart(
+      $('draw_graph_area'),
+      [
+        <% if params[:graph] == "barchart" %>
+          <%# 棒グラフ %>
+            <% if params[:action] == "good_bad_vote" %>
+              <%# ダミー1 %>
+              {
+              data: [
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, 0 ],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: ""
+                },
+              <%# Good %>
+              {
+              data: [
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, <%= data[1][:good_count] %> ],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: "Good"
+                },
+                <%# Bad %>
+                {
+                data: [ 
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, <%= data[1][:bad_count] %>],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: "Bad"
+                },
+                <%# ダミー2 %>
+                {
+                data: [ 
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, 0 ],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: ""
+                }
+            <% else %>
+              <%# ダミー1 %>
+              {
+              data: [
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, 0 ],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: ""
+                },
+                <%# 実データ %>
+                {
+                data: [ 
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, <%= data[1][:count] %>],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: "投票数"
+                },
+                <%# ダミー2 %>
+                {
+                data: [ 
+                <% @vote_count.each_with_index{ |data, index| %>
+                  [ <%= index + 1 %>, 0 ],
+                  <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+                  <% } %>
+                  ],
+                  label: ""
+                }
+            <% end %>
+        <% else %>
+          <%# 円グラフ(デフォルト) %>
+          <% if params[:action] == "good_bad_vote" %>
+            <% @vote_count.each_with_index{ |data, index| %>
+              { data: [ [<%= index + 1 %>, <%= data[1][:good_count] %>] ], label: "<%= data[1][:name] %>" }
+              <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+            <% } %>
+          <% else %>
+            <% @vote_count.each_with_index{ |data, index| %>
+              { data: [ [<%= index + 1 %>, <%= data[1][:count] %>] ], label: "<%= data[1][:name] %>" }
+              <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+            <% } %>
+          <% end %>
+        <% end %>
+      ],
+      {
+        <% if params[:graph] == "barchart" %>
+          <%# 棒グラフ %>
+            yaxis: {
+              min: 0,
+              tickSize: 1
+            },
+            xaxis: {
+              autoscaleMargin: 1.0,
+              min: 0,
+              max: <%= @vote_count.length + 1 %>,
+              ticks: [
+                [ 0, "" ],
+                <% @vote_count.each_with_index{ |data, index| %>
+                [ <%= index + 1 %>, "<%= data[1][:name] %>" ],
+                <% } %>
+                [ <%= @vote_count.length + 1 %>, " " ]
+              ]
+            },
+            legend: { margin: 5, show: true, backgroundOpacity: 0.5 },
+            grid: { labelMargin: 1, borderWidth: 1 },
+            bars: { radius: 1, lineWidth: 1, show: true }
+        <% else %>
+          <%# 円グラフ(デフォルト) %>
+      		pies: { show: true, autoScale: true },
+      		legend: { show: true }
+        <% end %>
+      }
+    );
+  } );
+}
+//]]>
+</script>
+
+<center>
+
+<div class="menu">
+  <%= @election.title %>：
+  <span class="<%= 'now_page' if params[:action] == 'one_vote' %>"><% if @election.one_vote == "on" %><%= link_to t("election.one_vote"), { :action => "one_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'three_vote' %>"><% if @election.three_vote == "on" %><%= link_to t("election.three_vote"), { :action => "three_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'rank_vote' %>"><% if @election.rank_vote == "on" %><%= link_to t("election.rank_vote"), { :action => "rank_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'free_choice_vote' %>"><% if @election.free_choice_vote == "on" %><%= link_to t("election.free_choice_vote"), { :action => "free_choice_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'good_bad_vote' %>"><% if @election.good_bad_vote == "on" %><%= link_to t("election.good_bad_vote"), { :action => "good_bad_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <br />
+  <br />
+  <span class="<%= 'now_page' if params[:graph] == 'pie_chart' or params[:graph].blank? %>"><%= link_to "円グラフ", { :graph => "pie_chart" } %></span>
+  <span class="<%= 'now_page' if params[:graph] == 'bar_chart' %>"><%= link_to "棒グラフ", { :graph => "bar_chart" } %></span>
+</div>
+
+<br />
+<br />
+
+<%# グラフ描画エリア %>
+<div id="draw_graph_area" style="width:700px; height:300px"></div>
+
+<%= javascript_tag("draw_graph()") %>
+
+</center>

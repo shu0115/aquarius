@@ -1,0 +1,48 @@
+<!--<center>-->
+
+<%= render :partial => "vote_menu" %>
+
+<% form_for :one_vote, :url => { :action => "one_vote_done", :election_id => @election.id, :election_page => params[:election_page] } do |f| %>
+
+  <table class="table_style" border="0">
+    <% @selections.each do |selection| %>
+    <tr>
+      <td>
+      <% if !@one_vote.selection_id.blank? and @one_vote.selection_id.to_s == selection.id.to_s %>
+        <%= f.radio_button :selection_id , selection.id, { :checked => true } %><%= f.label "selection_id_#{selection.id}", " #{selection.name}" %>
+      <% else %>
+        <%= f.radio_button :selection_id , selection.id %><%= f.label "selection_id_#{selection.id}", " #{selection.name}" %>
+      <% end %>
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td>
+      <% unless @one_vote.selection_id.blank? %>
+        <%= f.radio_button :selection_id , "" %><%= f.label "selection_id_", " 未選択" %>
+      <% else %>
+        <%= f.radio_button :selection_id , "", { :checked => true } %><%= f.label "selection_id_", " 未選択" %>
+      <% end %>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <%# 選挙ID %>
+  <%= f.hidden_field :election_id, { :value => @election.id } %>
+
+  <%# 投票ボタン %>
+  <%= f.submit t("election.vote"), :disable_with => t("election.vote") %><br />
+<% end %>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+<!--</center>-->
+
+<br />

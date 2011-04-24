@@ -1,0 +1,73 @@
+
+<script type="text/javascript">
+//<![CDATA[
+function draw_piechart() {
+  Event.observe( window, 'load', function() {
+    var graph = new Proto.Chart(
+      $('draw_piechart_area'),
+      [
+        <% if params[:graph] == "barchart" %>
+          <%# 棒グラフ %>
+            {
+              data: [ 
+          <% @one_vote_count.each_with_index{ |data, index| %>
+            [ <%= index + 1 %>, <%= data[1][:count] %>]
+            <% if (index + 1) < @one_vote_count.length %><%= "," %><% end %>
+          <% } %>
+              ],
+              label: "投票数"
+            }
+        <% else %>
+          <%# 円グラフ(デフォルト) %>
+          <% @one_vote_count.each_with_index{ |data, index| %>
+            { data: [ [<%= index + 1 %>, <%= data[1][:count] %>] ], label: "<%= data[1][:name] %>" }
+            <% if (index + 1) < @one_vote_count.length %><%= "," %><% end %>
+          <% } %>
+        <% end %>
+      ],
+      {
+        <% if params[:graph] == "barchart" %>
+          <%# 棒グラフ %>
+            xaxis: {
+                tickSize: 1,
+                min: 0,
+                max: <%= @one_vote_count.length + 1 %>,
+                ticks: [
+                    [ 0, "" ],
+                  <% @one_vote_count.each_with_index{ |data, index| %>
+                    [ <%= index + 1 %>, "<%= data[1][:name] %>" ],
+                  <% } %>
+                    [ <%= @one_vote_count.length + 1 %>, " " ]
+                ]
+            },
+            legend: { show: true },
+            points: { show: true },
+            bars: { show: true }
+        <% else %>
+          <%# 円グラフ(デフォルト) %>
+      		pies: { show: true, autoScale: true },
+      		legend: { show: true }
+        <% end %>
+      }
+    );
+  } );
+}
+//]]>
+</script>
+
+<center>
+
+<div class="menu">
+  <span class="<%= 'now_page' if params[:graph] == 'piechart' or params[:graph].blank? %>"><%= link_to "円グラフ", { :action => "one_vote", :graph => "piechart" } %></span>
+  <span class="<%= 'now_page' if params[:graph] == 'barchart' %>"><%= link_to "棒グラフ", { :action => "one_vote", :graph => "barchart" } %></span>
+</div>
+
+<br />
+<br />
+
+<%# グラフ描画エリア %>
+<div id="draw_piechart_area" style="width:700px; height:300px"></div>
+
+<%= javascript_tag("draw_piechart()") %>
+
+</center>

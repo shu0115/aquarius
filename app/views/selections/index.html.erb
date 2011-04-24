@@ -1,0 +1,36 @@
+<%# ページング %>
+<%= will_paginate @selections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<table class="table_style" border="0">
+  <tr>
+    <th><%= t("selection.name") %></th>
+    <th><br /></th>
+    <th><br /></th>
+    <th><br /></th>
+  </tr>
+
+<% @selections.each do |selection| %>
+  <tr>
+    <td><%=h selection.name %></td>
+    <td class="menu"><%= link_to t("menu.show"), { :action => "show", :id => selection.id, :page => params[:page], :election_page => params[:election_page] } %></td>
+    <td class="menu"><%= link_to t("menu.edit"), { :action => "edit", :id => selection.id, :page => params[:page], :election_page => params[:election_page] } %></td>
+    <td class="menu"><%= link_to t("menu.delete"), { :action => "destroy", :id => selection.id, :page => params[:page], :election_page => params[:election_page] }, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%# ページング %>
+<%= will_paginate @selections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.new"), { :action => "new", :election_id => params[:election_id], :page => params[:page], :election_page => params[:election_page] } %>
+</span>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :controller => "elections", :page => params[:election_page] } %>
+</span>

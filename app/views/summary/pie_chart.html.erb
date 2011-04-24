@@ -1,0 +1,114 @@
+
+<%# 円グラフ %>
+<script type="text/javascript">
+//<![CDATA[
+function draw_graph() {
+  Event.observe( window, 'load', function() {
+    var graph = new Proto.Chart(
+      $('draw_graph_area'),
+      [
+        <% @vote_count.each_with_index{ |data, index| %>
+          { data: [ [<%= index + 1 %>, <%= data[1][:count] %>] ], label: "<%= data[1][:name] %>" }
+          <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+        <% } %>
+      ],
+      {
+    		pies: { show: true, autoScale: true },
+    		legend: { show: true }
+      }
+    );
+  } );
+}
+
+function draw_graph_good() {
+  Event.observe( window, 'load', function() {
+    var graph = new Proto.Chart(
+      $('draw_graph_good_area'),
+      [
+        <%# 円グラフ %>
+        <% @vote_count.each_with_index{ |data, index| %>
+          { data: [ [<%= index + 1 %>, <%= data[1][:good_count] %>] ], label: "<%= data[1][:name] %>" }
+          <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+        <% } %>
+      ],
+      {
+        <%# 円グラフ(デフォルト) %>
+    		pies: { show: true, autoScale: true },
+    		legend: { show: true }
+      }
+    );
+  } );
+}
+
+function draw_graph_bad() {
+  Event.observe( window, 'load', function() {
+    var graph = new Proto.Chart(
+      $('draw_graph_bad_area'),
+      [
+        <%# 円グラフ %>
+        <% @vote_count.each_with_index{ |data, index| %>
+          { data: [ [<%= index + 1 %>, <%= data[1][:bad_count] %>] ], label: "<%= data[1][:name] %>" }
+          <% if (index + 1) < @vote_count.length %><%= "," %><% end %>
+        <% } %>
+      ],
+      {
+        <%# 円グラフ(デフォルト) %>
+    		pies: { show: true, autoScale: true },
+    		legend: { show: true }
+      }
+    );
+  } );
+}
+//]]>
+</script>
+
+<center>
+  
+  <% if false %>
+<div class="menu">
+  <%# 投票方法メニュー %>
+  <%= @election.title %>：
+  <span class="<%= 'now_page' if params[:action] == 'one_vote' %>"><% if @election.one_vote == "on" %><%= link_to t("election.one_vote"), { :action => "one_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'three_vote' %>"><% if @election.three_vote == "on" %><%= link_to t("election.three_vote"), { :action => "three_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'rank_vote' %>"><% if @election.rank_vote == "on" %><%= link_to t("election.rank_vote"), { :action => "rank_vote", :id => @election.id, :election_page => params[:page], :graph => "bar_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'free_choice_vote' %>"><% if @election.free_choice_vote == "on" %><%= link_to t("election.free_choice_vote"), { :action => "free_choice_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <span class="<%= 'now_page' if params[:action] == 'good_bad_vote' %>"><% if @election.good_bad_vote == "on" %><%= link_to t("election.good_bad_vote"), { :action => "good_bad_vote", :id => @election.id, :election_page => params[:page], :graph => "pie_chart" } %><% end %></span>
+  <br />
+  <br />
+  <%# グラフメニュー %>
+  <span class="<%= 'now_page' if params[:action] == 'total' %>"><%= link_to "集計", { :action => "total", :id => @election.id, :election_page => params[:page] } %></span>
+  <span class="<%= 'now_page' if params[:graph] == 'pie_chart' or params[:graph].blank? %>"><%= link_to "円グラフ", { :graph => "pie_chart" } %></span>
+  <span class="<%= 'now_page' if params[:graph] == 'bar_chart' %>"><%= link_to "棒グラフ", { :graph => "bar_chart" } %></span>
+</div>
+<% end %>
+
+<%= render :partial => "sub_menu" %>
+
+<br />
+<br />
+<br />
+
+<%# グラフ描画エリア %>
+<% if params[:action] == "good_bad_vote" %>
+  <b>Good</b><br />
+  <div id="draw_graph_good_area" style="width:700px; height:300px"></div>
+  <br />
+  <b>Bad</b><br />
+  <div id="draw_graph_bad_area" style="width:700px; height:300px"></div>
+  <%= javascript_tag("draw_graph_good()") %>
+  <%= javascript_tag("draw_graph_bad()") %>
+<% else %>
+  <b>投票数</b><br />
+  <div id="draw_graph_area" style="width:700px; height:300px"></div>
+  <%= javascript_tag("draw_graph()") %>
+<% end %>
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+</center>
+
+<br />

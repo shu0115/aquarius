@@ -1,0 +1,41 @@
+<%# ユーザ情報確認 %>
+<% form_for :user, :url => { :controller => "entry", :action => "complete" } do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.label :login_id, "ログインID" %>：<%= @user.login_id %>
+  <%= f.hidden_field :login_id, :value => @user.login_id %><br />
+
+  <%= f.label :password, "パスワード" %>：<% @user.password.length.times{ |index| %>*<% } %>
+  <%= f.hidden_field :password, :value => @user.password %><br />
+
+  <%= f.label :display_name, "表示名" %>：<%= @user.display_name %>
+  <%= f.hidden_field :display_name, :value => @user.display_name %><br />
+
+  <%= f.label :gender, "性別" %>：<%= $gender[@user.gender] %>
+  <%= f.hidden_field :gender, :value => @user.gender %><br />
+
+  <%= f.label :generation, "世代" %>：<%= @user.generation %>
+  <%= f.hidden_field :generation, :value => @user.generation %><br />
+
+<% if false %>
+  <%= f.label :twitter_id, "Twitter ID" %>：<%= @user.twitter_id %>
+  <%= f.hidden_field :twitter_id, :value => @user.twitter_id %><br />
+<% end %>
+
+  <br />
+
+  <%= f.submit "登録", :disable_with => "登録" %>
+<% end %>
+
+<%# 戻る用パラメータ%>
+<% form_for :user, :url => { :controller => "entry", :action => "input" } do |f| %>
+  <%= f.hidden_field :login_id, :value => @user.login_id %>
+  <%= f.hidden_field :password, :value => @user.password %>
+  <%= f.hidden_field :display_name, :value => @user.display_name %>
+  <%= f.hidden_field :gender, :value => @user.gender %>
+  <%= f.hidden_field :generation, :value => @user.generation %>
+  <%= f.hidden_field :twitter_id, :value => @user.twitter_id %>
+  <%= f.submit "戻る", :disable_with => "戻る" %>
+<% end %>
+
+<br />

@@ -1,0 +1,46 @@
+<!--<center>-->
+
+<%= render :partial => "vote_menu" %>
+
+<% form_for :rank_vote, :url => { :action => "rank_vote_done", :election_id => @election.id, :election_page => params[:election_page] } do |f| %>
+
+  <table class="table_style" border="0">
+  <% unless @rank_votes.blank? %>
+    <% @rank_votes.each do |vote| %>
+    <tr>
+      <td><%= f.label "rank", "#{vote.selection.name}" %></td>
+      <td><%= text_field_tag "rank_vote[rank_#{vote.selection_id}]", vote.selection_id, :value => vote.rank, :class => "input_field_width_20" %></td>
+    </tr>
+    <% end %>
+  <% else %>
+    <% @selections.each do |selection| %>
+    <tr>
+      <td><%= f.label "rank", "#{selection.name}" %></td>
+      <td><%= text_field_tag "rank_vote[rank_#{selection.id}]", selection.id, :value => 0, :class => "input_field_width_20" %></td>
+    </tr>
+    <% end %>
+  <% end %>
+  </table>
+
+  <br />
+
+  <%# 選挙ID %>
+  <%= f.hidden_field :election_id, { :value => @election.id } %>
+
+  <%# 投票ボタン %>
+  <%= f.submit t("election.vote"), :disable_with => t("election.vote") %>
+
+  <%# リセットボタン %>
+  <%= f.submit "リセット", :disable_with => "リセット", :confirm => "投票をリセットします。" %><br />
+<% end %>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+<!--</center>-->
+
+<br />

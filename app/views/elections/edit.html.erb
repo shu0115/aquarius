@@ -1,0 +1,84 @@
+
+<% unless @election.blank? %>
+  <% form_for @election, :url =>{ :action => "update", :id => @election.id, :page => params[:page] } do |f| %>
+    <%= f.error_messages %>
+  
+    <%# タイトル %>
+    <%= f.label :title, t("election.title") %>：<br />
+    <%= f.text_field :title, :class => "input_field_width_200" %><br />
+    
+    <br />
+  
+    <%# モード %>
+    <%= f.label :mode, t("election.mode") %>：<br />
+    <%= f.radio_button :mode , "public" %><%= f.label :mode_public, " 公開" %>
+    <%= f.radio_button :mode , "private" %><%= f.label :mode_private, " 非公開" %>
+    <%= f.radio_button :mode , "protect" %><%= f.label :mode_protect, " 保護" %>：<%= f.label :show_key, "閲覧キー" %> <%= f.text_field :show_key, :class => "input_field_width_100" %><br />
+  
+    <br />
+  
+    <%# 開始日時 %>
+    <%= f.label :start_time, t("election.start_time") %>：<br />
+    <%= f.datetime_select :start_time, :use_month_numbers => true, :minute_step => 5 %><br />
+    
+    <br />
+  
+    <%# 終了日時 %>
+    <%= f.label :end_time, t("election.end_time") %>：<br />
+    <%= f.datetime_select :end_time, :use_month_numbers => true, :minute_step => 5 %><br />
+    
+    <br />
+  
+    <%# 一人投票 %>
+    <%= f.label :one_vote, t("election.one_vote") %>：<br />
+    <%= f.radio_button :one_vote , "on" %><%= f.label :one_vote_on, " ON" %>
+    　<%= f.radio_button :one_vote , "off" %><%= f.label :one_vote_off, " OFF" %><br />
+    
+    <br />
+  
+    <%# 三人投票 %>
+    <%= f.label :three_vote, t("election.three_vote") %>：<br />
+    <%= f.radio_button :three_vote , "on" %><%= f.label :three_vote_on, " ON" %>
+    　<%= f.radio_button :three_vote , "off" %><%= f.label :three_vote_off, " OFF" %><br />
+    
+    <br />
+  
+    <%# 順位投票 %>
+    <%= f.label :rank_vote, t("election.rank_vote") %>：<br />
+    <%= f.radio_button :rank_vote , "on" %><%= f.label :rank_vote_on, " ON" %>
+    　<%= f.radio_button :rank_vote , "off" %><%= f.label :rank_vote_off, " OFF" %><br />
+    
+    <br />
+  
+    <%# 自由選択投票 %>
+    <%= f.label :free_choice_vote, t("election.free_choice_vote") %>：<br />
+    <%= f.radio_button :free_choice_vote , "on" %><%= f.label :free_choice_vote_on, " ON" %>
+    　<%= f.radio_button :free_choice_vote , "off" %><%= f.label :free_choice_vote_off, " OFF" %><br />
+    
+    <br />
+  
+    <%# Good/Bad投票 %>
+    <%= f.label :good_bad_vote, t("election.good_bad_vote") %>：<br />
+    <%= f.radio_button :good_bad_vote , "on" %><%= f.label :good_bad_vote_on, " ON" %>
+    　<%= f.radio_button :good_bad_vote , "off" %><%= f.label :good_bad_vote_off, " OFF" %><br />
+    
+    <br />
+
+    <%= f.submit t("menu.save"), :disable_with => t("menu.save") %><br />
+  
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :page => params[:page] } %>
+    <%= link_to t("menu.show"), { :action => "show", :id => @election.id, :page => params[:page] } %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :page => params[:page] } %>
+  </span>
+<% end %>

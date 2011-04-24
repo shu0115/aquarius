@@ -1,0 +1,48 @@
+<% unless @user.blank? %>
+  
+  <% form_for :user, :url => { :action => :update, :id => @user.id } do |f| %>
+    <%= f.error_messages %>
+  
+    <%= f.label :login_id, "ログインID" %>：<br />
+    <%= f.text_field :login_id, :class => "input_field_width_200" %><br />
+    
+    <br />
+    
+    <%= f.label :display_name, "表示名" %>：<br />
+    <%= f.text_field :display_name, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+<% if false %>    
+    <%= f.label :twitter_id, "Twitter ID" %>：<br />
+    <%= f.text_field :twitter_id, :class => "input_field_width_200" %><br />
+    
+    <br />
+<% end %>
+
+    <%= f.label :password, "現在のパスワード" %>：<br />
+    <%= f.password_field :password, :class => "input_field_width_200" %><br />
+    
+    <br />
+  
+    <%= f.submit "変更", :disable_with => "変更" %><br />
+    
+    <br />
+    
+    <span class="menu"><%= link_to( "パスワード変更", { :action => :edit_password }, { :target => "_self" } ) %></span><br />
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <span class="menu"><%= link_to t("menu.show"), { :action => :show } %></span>
+  
+  <br />
+
+<% else %>
+
+  <span class="menu">
+    <%= link_to t("menu.top"), :root %>
+  </span>
+
+<% end %>

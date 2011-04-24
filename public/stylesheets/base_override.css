@@ -1,0 +1,8 @@
+
+.input_field_width_20 {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border: 1px solid #aaa;
+  width: 20px;
+  padding: 0px 1px 0px 1px;
+}

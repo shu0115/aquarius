@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @rank_vote.user_id %>
+</p>
+
+<p>
+  <b>Election:</b>
+  <%=h @rank_vote.election_id %>
+</p>
+
+<p>
+  <b>Selection:</b>
+  <%=h @rank_vote.selection_id %>
+</p>
+
+<p>
+  <b>Rank:</b>
+  <%=h @rank_vote.rank %>
+</p>
+
+
+<%= link_to 'Edit', edit_rank_vote_path(@rank_vote) %> |
+<%= link_to 'Back', rank_votes_path %>

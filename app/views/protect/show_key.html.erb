@@ -1,0 +1,24 @@
+<center>
+
+<table align="center" class="text_left table_style">
+  <tr>
+    <td><%= @election.title %></td>
+  </tr>
+<table>
+
+<br />
+
+<p style="color: green"><%= flash[:show_key_notice] %></p>
+
+<% form_tag :action => "show_key", :id => @election.id do %>
+  閲覧キーを入力して下さい<br />
+  <br />
+  <%= password_field_tag :show_key, params[:show_key], :class => "input_field_width_150" %><br />
+  <br />
+  <%= hidden_field_tag :return_action, params[:return_action] %>
+  <%= submit_tag "送信", :disable_with => "送信" %><br />
+<% end %>
+
+<br />
+
+</center>

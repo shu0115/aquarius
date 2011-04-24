@@ -1,0 +1,37 @@
+<%# ページング %>
+<%= will_paginate @users, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<table class="table_style" border="0">
+  <tr>
+    <th><%= t("user.login_id") %></th>
+    <th><%= t("user.display_name") %></th>
+    <th><%= t("user.level") %></th>
+    <th><%= t("user.twitter_id") %></th>
+    <th><%= t("user.mail_address") %></th>
+    <th><%= t("user.updated_at") %></th>
+    <th><%= t("user.created_at") %></th>
+    <th><br /></th>
+    <th><br /></th>
+    <th><br /></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%=h user.login_id %></td>
+    <td><%=h user.display_name %></td>
+    <td><%=h user.level %></td>
+    <td><%=h user.twitter_id %></td>
+    <td><%=h user.mail_address %></td>
+    <td><%=h user.updated_at.strftime("%Y/%m/%d %H:%M:%S") unless user.updated_at.blank? %></td>
+    <td><%=h user.created_at.strftime("%Y/%m/%d %H:%M:%S") unless user.created_at.blank? %></td>
+    <td class="menu"><%= link_to 'Show', user %></td>
+    <td class="menu"><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td class="menu"><%= link_to 'Destroy', user, :confirm => "「#{user.login_id}」を本当に削除してよろしいですか？", :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%# ページング %>
+<%= will_paginate @users, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<br />

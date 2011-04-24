@@ -1,0 +1,26 @@
+<h1>Listing good_bad_votes</h1>
+
+<table class="table_style">
+  <tr>
+    <th>User</th>
+    <th>Election</th>
+    <th>Selection</th>
+    <th>Choice</th>
+  </tr>
+
+<% @good_bad_votes.each do |good_bad_vote| %>
+  <tr>
+    <td><%=h good_bad_vote.user_id %></td>
+    <td><%=h good_bad_vote.election_id %></td>
+    <td><%=h good_bad_vote.selection_id %></td>
+    <td><%=h good_bad_vote.choice %></td>
+    <td><%= link_to 'Show', good_bad_vote %></td>
+    <td><%= link_to 'Edit', edit_good_bad_vote_path(good_bad_vote) %></td>
+    <td><%= link_to 'Destroy', good_bad_vote, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New good_bad_vote', new_good_bad_vote_path %>

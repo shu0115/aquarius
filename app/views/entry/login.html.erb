@@ -1,0 +1,31 @@
+<center>
+
+<p style="color: green"><%= flash[:login_notice] %></p>
+
+<% form_tag :controller => "entry", :action => "login" do %>
+  <table class="table_style" border="0">
+    <tr>
+      <td>ID:</td>
+      <td><input type="text" name="login[login_id]" size="15", class="input_field_width_100" /></td>
+    </tr>
+      
+    <tr>
+      <td>PASS:</td>
+      <td><input type="password" name="login[password]" size="7", class="input_field_width_100" /></td>
+    </tr>
+      
+    <tr>
+      <td colspan="2" align="center"><%= submit_tag "ログイン", :disable_with => "ログイン" %></td>
+    </tr>
+  </table>
+<% end %>
+
+<br />
+<br />
+
+<span class="menu"><%= link_to "New Entry", { :controller => "entry", :action => "input" } %></span>
+
+</center>
+
+<br />
+<br />

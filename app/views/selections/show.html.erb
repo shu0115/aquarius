@@ -1,0 +1,22 @@
+
+<% unless @selection.blank? %>
+  <table class="table_style">
+    <tr>
+      <th align="left"><%= t("selection.name") %></th>
+      <td><%= @selection.name %></td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :election_id => @selection.election_id, :page => params[:page], :election_page => params[:election_page] } %>
+    <%= link_to t("menu.edit"), { :action => "edit", :id => @selection.id, :page => params[:page], :election_page => params[:election_page] } %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :election_id => @selection.election_id, :page => params[:page], :election_page => params[:election_page] } %>
+  </span>
+<% end %>

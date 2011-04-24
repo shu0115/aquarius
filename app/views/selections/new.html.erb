@@ -1,0 +1,22 @@
+
+<% form_for :selection, :url => { :action => "create", :page => params[:page], :election_page => params[:election_page] } do |f| %>
+  <%= f.error_messages %>
+
+  <%# タイトル %>
+  <%= f.label :name, t("selection.name") %>：<br />
+  <%= f.text_field :name, :class => "input_field_width_200" %><br />
+  
+  <br />
+
+  <%# 選挙ID %>
+  <%= f.hidden_field :election_id, { :value => params[:election_id] } %>
+
+  <%= f.submit t("menu.create"), :disable_with => t("menu.create") %><br />
+<% end %>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :election_id => params[:election_id], :page => params[:page], :election_page => params[:election_page] } %>
+</span>

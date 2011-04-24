@@ -1,0 +1,2 @@
+module FreeChoiceVotesHelper
+end

@@ -1,0 +1,29 @@
+
+<% unless @selection.blank? %>
+  <% form_for @selection, :url =>{ :action => "update", :id => @selection.id, :page => params[:page], :election_page => params[:election_page] } do |f| %>
+    <%= f.error_messages %>
+  
+    <%# タイトル %>
+    <%= f.label :name, t("selection.name") %>：<br />
+    <%= f.text_field :name, :class => "input_field_width_200" %><br />
+    
+    <br />
+
+    <%= f.submit t("menu.save"), :disable_with => t("menu.save") %><br />
+  
+  <% end %>
+  
+  <br />
+  <br />
+  
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :election_id => @selection.election_id, :page => params[:page], :election_page => params[:election_page] } %>
+    <%= link_to t("menu.show"), { :action => "show", :id => @selection.id, :page => params[:page], :election_page => params[:election_page] } %>
+  </span>
+  
+  <br />
+<% else %>
+  <span class="menu">
+    <%= link_to t("menu.list"), { :action => "index", :election_id => @selection.election_id, :page => params[:page], :election_page => params[:election_page] } %>
+  </span>
+<% end %>

@@ -1,0 +1,42 @@
+<!--<center>-->
+
+<%= render :partial => "vote_menu" %>
+
+<% form_for :free_choice_vote, :url => { :action => "free_choice_vote_done", :election_id => @election.id, :election_page => params[:election_page] } do |f| %>
+
+  <table class="table_style" border="0">
+    <%# 候補 %>
+    <% @selections.each do |selection| %>
+    <tr>
+      <td>
+      <%= f.check_box( "selection_id[#{selection.id}]", { :checked => @free_choice_votes.include?(selection.id), :disabled => false }, selection.id, "" ) %>
+      <%= f.label "selection_id[#{selection.id}]", " #{selection.name}" %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+
+  <br />
+
+  <%# 選挙ID %>
+  <%= f.hidden_field :election_id, { :value => @election.id } %>
+
+  <%# 投票ボタン %>
+  <%= f.submit t("election.vote"), :disable_with => t("election.vote") %>
+  
+  <%# 全選択／全解除ボタン %>
+  <input type="button" value="全選択" onClick="all_choice(this.form, true)">
+  <input type="button" value="全解除" onClick="all_choice(this.form, false)">
+  <br />
+<% end %>
+
+<br />
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.list"), { :action => "index", :page => params[:election_page] } %>
+</span>
+
+<!--</center>-->
+
+<br />

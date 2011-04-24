@@ -1,0 +1,47 @@
+<%# ページング %>
+<%= will_paginate @elections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<table class="table_style" border="0">
+  <tr>
+    <th><%= t("election.title") %></th>
+    <th><%= t("election.mode") %></th>
+    <th><%= t("election.start_time") %></th>
+    <th><%= t("election.end_time") %></th>
+    <th><%= t("election.index_one_vote") %></th>
+    <th><%= t("election.index_three_vote") %></th>
+    <th><%= t("election.index_rank_vote") %></th>
+    <th><%= t("election.index_free_choice_vote") %></th>
+    <th><%= t("election.index_good_bad_vote") %></th>
+    <th><br /></th>
+    <th><br /></th>
+    <th><br /></th>
+    <th><br /></th>
+  </tr>
+
+<% @elections.each do |election| %>
+  <tr>
+    <td><%=h election.title %></td>
+    <td><%=h $mode[election.mode] %></td>
+    <td><%=h election.start_time.strftime("%Y/%m/%d %H:%M") unless election.start_time.blank? %></td>
+    <td><%=h election.end_time.strftime("%Y/%m/%d %H:%M") unless election.end_time.blank? %></td>
+    <td align="center"><%=h $function_sign[election.one_vote] %></td>
+    <td align="center"><%=h $function_sign[election.three_vote] %></td>
+    <td align="center"><%=h $function_sign[election.rank_vote] %></td>
+    <td align="center"><%=h $function_sign[election.free_choice_vote] %></td>
+    <td align="center"><%=h $function_sign[election.good_bad_vote] %></td>
+    <td class="menu"><%= link_to t("election.selection"), { :controller => "selections", :election_id => election.id, :election_page => params[:page] } %></td>
+    <td class="menu"><%= link_to t("menu.show"), { :action => "show", :id => election.id, :page => params[:page] } %></td>
+    <td class="menu"><%= link_to t("menu.edit"), { :action => "edit", :id => election.id, :page => params[:page] } %></td>
+    <td class="menu"><%= link_to t("menu.delete"), { :action => "destroy", :id => election.id, :page => params[:page] }, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%# ページング %>
+<%= will_paginate @elections, :previous_label => 'Prev', :next_label => 'Next', :params => { :action => "index" } %><br />
+
+<br />
+
+<span class="menu">
+  <%= link_to t("menu.new"), { :action => "new" } %>
+</span>

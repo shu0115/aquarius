@@ -1,0 +1,24 @@
+<h1>Listing one_votes</h1>
+
+<table class="table_style">
+  <tr>
+    <th>User</th>
+    <th>Election</th>
+    <th>Selection</th>
+  </tr>
+
+<% @one_votes.each do |one_vote| %>
+  <tr>
+    <td><%=h one_vote.user_id %></td>
+    <td><%=h one_vote.election_id %></td>
+    <td><%=h one_vote.selection_id %></td>
+    <td><%= link_to 'Show', one_vote %></td>
+    <td><%= link_to 'Edit', edit_one_vote_path(one_vote) %></td>
+    <td><%= link_to 'Destroy', one_vote, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New one_vote', new_one_vote_path %>

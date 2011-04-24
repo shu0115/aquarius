@@ -1,0 +1,24 @@
+<h1>Editing free_choice_vote</h1>
+
+<% form_for(@free_choice_vote) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :election_id %><br />
+    <%= f.text_field :election_id %>
+  </p>
+  <p>
+    <%= f.label :selection_id %><br />
+    <%= f.text_field :selection_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @free_choice_vote %> |
+<%= link_to 'Back', free_choice_votes_path %>
