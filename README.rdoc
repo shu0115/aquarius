@@ -1,0 +1,14 @@
+= Aquarius
+
+Vote App.
+
+= Heroku Setup
+
+  $ git clone git@github.com:shu0115/aquarius.git
+  $ cd aquarius
+  $ heroku create YOUR-APP-NAME
+  $ git push heroku master
+
+= Copyright
+
+Copyright (c) 2011 Shun Matsumoto.
